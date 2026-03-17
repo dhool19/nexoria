@@ -27,23 +27,23 @@
 ### System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    NEXORIA SYSTEM                        │
-│                                                         │
-│   ┌──────────────┐      ┌──────────────────────────┐   │
-│   │  VR Headsets │ ───► │   Backend (Flask + Mongo) │   │
-│   │  PicoFleet   │      │   · Telemetry Ingestion   │   │
-│   │  Agent (APK) │      │   · Anomaly Detection     │   │
-│   └──────────────┘      │   · REST API              │   │
-│                          └────────────┬─────────────┘   │
-│                                       │                  │
-│                          ┌────────────▼─────────────┐   │
-│                          │   Frontend (React + Vite) │   │
-│                          │   · Fleet Dashboard       │   │
-│                          │   · Analytics & Charts    │   │
-│                          │   · Remote Management     │   │
-│                          └──────────────────────────┘   │
-└─────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────┐
+│                    NEXORIA SYSTEM                      │
+│                                                        │
+│   ┌──────────────┐       ┌──────────────────────────┐  │
+│   │  VR Headsets │ ───►  │   Backend (Flask + Mongo)│  │
+│   │  PicoFleet   │       │   · Telemetry Ingestion  │  │
+│   │  Agent (APK) │       │   · Anomaly Detection    │  │
+│   └──────────────┘       │   · REST API             │  │
+│                          └────────────┬─────────────┘  │
+│                                       │                │
+│                          ┌────────────▼──────────────┐ │
+│                          │   Frontend (React + Vite) │ │
+│                          │   · Fleet Dashboard       │ │
+│                          │   · Analytics & Charts    │ │
+│                          │   · Remote Management     │ │
+│                          └───────────────────────────┘ │
+└────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -56,10 +56,67 @@
 | 🔋 **Battery Analytics** | Track battery levels, charge cycles, and health trends |
 | 🌡️ **Thermal Monitoring** | Detect overheating and thermal anomalies across the fleet |
 | 📡 **Network Analytics** | Monitor signal strength, latency, and connectivity drops |
-| 🤖 **AI Anomaly Detection** | HuggingFace-powered detection of irregular device behaviour |
+| 🤖 **AI Anomaly Recommendations** | HuggingFace-powered recommendations of irregular device behaviour |
 | 📊 **Telemetry Visualization** | Per-device charts and fleet-wide analytics dashboard |
-| 📦 **Remote APK Install** | Push and install applications to headsets remotely via ADB |
+| 📦 **Remote APK Install** | Push and install applications to headsets remotely |
 | 🚀 **Scalable Architecture** | Designed to manage large fleets across sites |
+
+---
+## 🖼️ Screenshots
+ 
+### Fleet Dashboard — Device List
+ 
+> Browse and manage all registered VR headsets with live online/offline status.
+ 
+![Devices Dashboard](nexoria-backend/screenshots/devices_dashboard.png)
+ 
+---
+ 
+### Fleet Analytics
+ 
+> Fleet-level health metrics, usage heatmap, session stats, and operational insights.
+ 
+![Fleet Analytics](nexoria-backend/screenshots/devices_analytics.png)
+ 
+---
+ 
+### Device Dashboard
+ 
+> Deep-dive into a single device — headset info, battery, network, installed apps, and remote APK install.
+ 
+![Device Dashboard](nexoria-backend/screenshots/device_dashboard.png)
+ 
+---
+ 
+### Device Analytics
+ 
+> Per-device battery and temperature trends over time.
+ 
+![Device Analytics](nexoria-backend/screenshots/device_analytics.png)
+ 
+---
+ 
+### AI Anomaly Detection — Battery
+ 
+> AI-powered battery anomaly detection with discharge rate analysis and actionable recommendations.
+ 
+![Battery Anomaly Detection](nexoria-backend/screenshots/battery_anomaly.png)
+ 
+---
+ 
+### AI Anomaly Detection — Thermal
+ 
+> Thermal comfort analysis with temperature trend monitoring and safety recommendations.
+ 
+![Thermal Anomaly Detection](nexoria-backend/screenshots/thermal_anomaly.png)
+ 
+---
+ 
+### AI Anomaly Detection — Network
+ 
+> Network performance diagnostics including RSSI, link speed stability, and optimisation tips.
+ 
+![Network Anomaly Detection](nexoria-backend/screenshots/network_anomaly.png)
 
 ---
 
@@ -68,7 +125,7 @@
 ```
 Backend          →  Python 3.10+  ·  Flask  ·  MongoDB (Atlas)  ·  HuggingFace
 Frontend         →  React 18  ·  Vite  ·  JavaScript
-Android Agent    →  Android (Kotlin/Java)  ·  Pico SDK  ·  ADB
+Android Agent    →  Android (Kotlin)  ·  Pico SDK  ·  ADB
 ```
 
 ---
@@ -230,37 +287,19 @@ npm run dev
 
 ---
 
-## 📁 Project Structure
-
-```
-nexoria/
-├── nexoria-backend/
-│   ├── server.py           # Flask entry point
-│   ├── requirements.txt    # Python dependencies
-│   ├── .env                # Environment variables (not committed)
-│   └── ...
-├── nexoria-frontend/
-│   ├── src/                # React source files
-│   ├── package.json
-│   ├── vite.config.js
-│   ├── .env                # Environment variables (not committed)
-│   └── ...
-└── PicoFleetAgent/
-    ├── app/                # Android source
-    └── ...
-```
-
----
-
 ## 👩‍💻 Author
 
 **Ayesha Dhool**
 
 ---
 
-## 📄 License
+## 📄 Legal
 
-This project is intended for **academic and research use only**.
+Copyright & Trademark © 2026 Ayesha Ahmed Dhool. All rights reserved.
+
+This app and its contents are the exclusive property of Ayesha Ahmed Dhool. Unauthorized reproduction, distribution, or use of any part of this application, including its code, design, and media, is strictly prohibited.
+
+All trademarks, service marks, and logos are the property of their respective owners.
 
 ---
 
