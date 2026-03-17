@@ -1,0 +1,26 @@
+{
+  "device_01": {
+    "device_type": "VR-Brille",
+    "color": "Schwarz",
+    "acquisition_year": 2022,
+    "device_model": "Pico Neo 3 Pro Eye",
+    "lab_name": "DHBW AR & VR Lab",
+    "device_SN": "PA7J50PGF9260317W"
+  },
+  "b95d9774ea50aaae": {
+    "device_type": "VR-Brille",
+    "color": "Dunkelblau",
+    "acquisition_year": 2021,
+    "device_model": "Pico Neo 3 Pro Eye",
+    "lab_name": "DHBW AR & VR Lab",
+    "device_SN": "PA7J50PGF9260317W"
+  },
+  "e3acd70477b28688": {
+    "device_type": "VR-Brille",
+    "color": "Gelb",
+    "acquisition_year": 2021,
+    "device_model": "Pico Neo 3 Pro Eye",
+    "lab_name": "DHBW AR & VR Lab",
+    "device_SN": "PA7J50PGF9260371W"
+  }
+}

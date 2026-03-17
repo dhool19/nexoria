@@ -1,0 +1,27 @@
+# Env files
+**/.env
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.env
+
+# Frontend
+node_modules/
+dist/
+
+# Android / Kotlin
+.gradle/
+build/
+local.properties
+.idea/
+.kotlin/
+
+# Uploaded/generated files
+uploads_apk/
+*.apk
+
+# OS/editor
+.DS_Store
+Thumbs.db
