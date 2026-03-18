@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   analyzeTemperatureStats,
   type TemperatureStats,
@@ -46,21 +47,22 @@ const ThermalComfortPage = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(
+        const res = await axios.get<ThermalStatsAIResponse>(
           `${API_BASE_URL}/api/devices/${serial}/thermal_stats_ai?window_hours=12`
         );
-        if (!res.ok) {
-          throw new Error(`Request failed with status ${res.status}`);
-        }
 
-        const data: ThermalStatsAIResponse = await res.json();
+        const data = res.data;
 
         setStats(data.stats);
         setAi(data.ai_analysis);
         setVerdict(analyzeTemperatureStats(data.stats));
       } catch (err: any) {
         console.error(err);
-        setError(err?.message || "Failed to load temperature stats");
+        setError(
+          err?.response?.data ||
+            err?.message ||
+            "Failed to load temperature stats"
+        );
       } finally {
         setLoading(false);
       }

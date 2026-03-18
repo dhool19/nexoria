@@ -1,6 +1,7 @@
 // src/App.tsx
 
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "./App.css";
 import TopNav from "./components/TopNav";
@@ -29,10 +30,9 @@ const App: React.FC = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(`${API_BASE_URL}/devices`);
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const res = await axios.get<ApiResponse>(`${API_BASE_URL}/devices`);
 
-        const data: ApiResponse = await res.json();
+        const data = res.data;
         const rows: DeviceRow[] = Object.entries(data).map(([id, info]) => ({
           id,
           ...info,
@@ -40,7 +40,11 @@ const App: React.FC = () => {
 
         setDevices(rows);
       } catch (err: any) {
-        setError(err?.message || "Failed to load devices");
+        setError(
+          err?.response?.data ||
+            err?.message ||
+            "Failed to load devices"
+        );
       } finally {
         setLoading(false);
       }

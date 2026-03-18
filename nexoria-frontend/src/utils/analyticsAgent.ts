@@ -1,5 +1,7 @@
 // src/utils/analyticsAgent.ts
 
+import axios from "axios";
+
 const API_BASE_URL =
   import.meta.env.VITE_API_BASE_URL ?? "http://localhost:5000";
 
@@ -33,7 +35,7 @@ export type UsageSummary = {
 
 export type UsageHeatmap = {
   window_days: number;
-  heatmap: Record<string, number[]>; 
+  heatmap: Record<string, number[]>;
 };
 
 export type InsightsResponse = {
@@ -42,9 +44,8 @@ export type InsightsResponse = {
   insights: string[];
 };
 
-
 export type TrendPoint = {
-  t: string; 
+  t: string;
   avg: number | null;
   min: number;
   max: number;
@@ -53,19 +54,15 @@ export type TrendPoint = {
 
 export type TrendResponse = {
   serial: string;
-  metric: string; 
+  metric: string;
   window_hours: number;
   bucket_minutes: number;
   points: TrendPoint[];
 };
 
 async function safeFetch<T>(url: string): Promise<T> {
-  const res = await fetch(url);
-  if (!res.ok) {
-    const text = await res.text().catch(() => "");
-    throw new Error(text || `Request failed with status ${res.status}`);
-  }
-  return (await res.json()) as T;
+  const res = await axios.get<T>(url);
+  return res.data;
 }
 
 export function fetchFleetSummary(params?: {

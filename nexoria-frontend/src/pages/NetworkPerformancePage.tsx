@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 import {
   analyzeNetworkStats,
   type NetworkStats,
@@ -46,31 +47,35 @@ const NetworkPerformancePage = () => {
         setAi(null);
         setAiError(null);
 
-        const res = await fetch(
+        const res = await axios.get<NetworkStats>(
           `${API_BASE_URL}/api/devices/${serial}/network_stats?window_hours=24`
         );
-        if (!res.ok) throw new Error(`Request failed with status ${res.status}`);
 
-        const data: NetworkStats = await res.json();
+        const data = res.data;
         setStats(data);
         setVerdict(analyzeNetworkStats(data));
 
         try {
-          const aiRes = await fetch(
+          const aiRes = await axios.get<NetworkAIResponse>(
             `${API_BASE_URL}/api/devices/${serial}/network_stats_ai?window_hours=24`
           );
-          if (!aiRes.ok) {
-            throw new Error(`AI request failed with status ${aiRes.status}`);
-          }
-          const aiData: NetworkAIResponse = await aiRes.json();
+          const aiData = aiRes.data;
           setAi(aiData);
         } catch (e: any) {
           console.error("AI fetch error:", e);
-          setAiError(e?.message || "Failed to load AI recommendations");
+          setAiError(
+            e?.response?.data ||
+              e?.message ||
+              "Failed to load AI recommendations"
+          );
         }
       } catch (err: any) {
         console.error(err);
-        setError(err?.message || "Failed to load network stats");
+        setError(
+          err?.response?.data ||
+            err?.message ||
+            "Failed to load network stats"
+        );
       } finally {
         setLoading(false);
       }

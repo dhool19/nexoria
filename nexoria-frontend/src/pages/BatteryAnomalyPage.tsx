@@ -2,6 +2,7 @@
 
 import React, { useEffect, useMemo, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import type {
   BatteryStatsWithAiResponse,
@@ -35,22 +36,21 @@ const BatteryAnomalyPage: React.FC = () => {
         setLoading(true);
         setError(null);
 
-        const res = await fetch(
+        const res = await axios.get<BatteryStatsWithAiResponse>(
           `${API_BASE_URL}/api/devices/${serial}/battery_stats_ai?window_hours=12`
         );
 
-        if (!res.ok) {
-          const text = await res.text().catch(() => "");
-          throw new Error(text || `Request failed with status ${res.status}`);
-        }
-
-        const json: BatteryStatsWithAiResponse = await res.json();
+        const json = res.data;
         setData(json);
 
         setVerdict(analyzeBatteryStats(json.stats));
       } catch (err: any) {
         console.error("Failed to load battery stats", err);
-        setError(err?.message || "Failed to load battery stats");
+        setError(
+          err?.response?.data ||
+            err?.message ||
+            "Failed to load battery stats"
+        );
       } finally {
         setLoading(false);
       }
