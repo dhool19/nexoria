@@ -195,11 +195,12 @@ Create a `.env` file inside `nexoria-backend/`:
 
 ```bash
 # nexoria-backend/.env
-
+PORT=5000
+BASE_URL=http://127.0.0.1:5000
 MONGODB_URI=your_mongodb_connection_string
 HF_TOKEN=your_huggingface_token
-BASE_URL=http://127.0.0.1:5000
-PORT=5000
+HF_MODEL=your_huggingface_model
+HF_PROVIDER=your_huggingface_provider
 ```
 
 > 💡 Get your `HF_TOKEN` from [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
@@ -248,11 +249,32 @@ npm run dev
 1. Open **Android Studio**
 2. Select **Open Project** → choose the `PicoFleetAgent/` folder
 3. Wait for **Gradle sync** to complete
-4. Connect your **Pico headset** via USB
-5. Enable **USB Debugging** on the device
-6. Press **Run** ▶️ in Android Studio
+4. Before building, open `app/src/main/java/.../ApiConfig.kt` and update the IP address to match the machine where your backend server is running:
+```kotlin
+   // ApiConfig.kt
+   const val BASE_URL = "http://<YOUR_SERVER_IP>:<PORT>/"
+```
+5. Connect your **Pico headset** via USB
+6. Enable **USB Debugging** on the device
+7. Press **Run** ▶️ in Android Studio
 
-**Or — install via ADB directly:**
+#### Build APK
+
+1. In Android Studio, go to **Build → Build Bundle(s) / APK(s) → Build APK(s)**
+2. Wait for the build to finish
+3. Click **Locate** in the bottom-right notification to find the APK
+
+**Or — build via command line:**
+```bash
+# Debug APK
+./gradlew assembleDebug
+
+# APK will be output to:
+# app/build/outputs/apk/debug/app-debug.apk
+```
+
+
+**Install via ADB directly:**
 
 ```bash
 # Check device is connected
